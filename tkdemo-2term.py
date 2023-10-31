@@ -12,22 +12,69 @@ second_term = 0
 # 結果
 result = 0
 
+operation = 0
+
 
 def do_puls():
     global current_number
     global first_term
+    global operation
 
+    operation = 1
     first_term = current_number
     current_number = 0
 
+
+def do_minus():
+    global current_number
+    global first_term
+    global operation
+
+    operation = 2
+    first_term = current_number
+    current_number = 0
+
+
+def do_times():
+    global current_number
+    global first_term
+    global operation
+
+    operation = 3
+    first_term = current_number
+    current_number = 0
+
+
+def do_division():
+    global current_number
+    global first_term
+    global operation
+
+    operation = 4
+    first_term = current_number
+    current_number = 0
 
 def do_eq():
     global second_term
     global result
     global current_number
+
     second_term = current_number
-    result = first_term + second_term
-    current_number = 0
+    if operation == 1:
+        result = first_term + second_term
+        current_number = 0
+    elif operation == 2:
+        result = first_term - second_term
+        current_number = 0
+    elif operation == 3:
+        result = first_term * second_term
+        current_number = 0
+    elif operation == 4:
+        if second_term == 0: # 0 を割るという概念はないのでエラー表示
+            result = "Error"
+        else:
+            result = first_term // second_term # 課題指示通りに整数商を求める 演算子 // とする
+            current_number = 0
 
 
 # # 数字キーのコールバック
@@ -89,6 +136,21 @@ def plus():
     show_number(current_number)
 
 
+def minus():
+    do_minus()
+    show_number(current_number)
+
+
+def times():
+    do_times()
+    show_number(current_number)
+
+
+def division():
+    do_division()
+    show_number(current_number)
+
+
 def eq():
     do_eq()
     show_number(result)
@@ -123,6 +185,9 @@ b9 = tk.Button(f, text="9", highlightbackground="#ffffff", width=2,command=lambd
 b0 = tk.Button(f, text="0", highlightbackground="#ffffff", width=2,command=lambda:key(0))
 bc = tk.Button(f, text="C", highlightbackground="#ff0000", width=2,command=clear)
 bp = tk.Button(f, text="+", highlightbackground="#00ff00", width=2,command=plus)
+bm = tk.Button(f, text="-", highlightbackground="#00ff00", width=2,command=minus)
+bt = tk.Button(f, text="x", highlightbackground="#00ff00", width=2,command=times)
+bd = tk.Button(f, text="/", highlightbackground="#00ff00", width=2,command=division)
 be = tk.Button(f, text="=", highlightbackground="#00ff00", width=2,command=eq)
 
 # Grid 型ジオメトリマネージャによるウィジェットの割り付け
@@ -140,6 +205,9 @@ b0.grid(row=4,column=0)
 bc.grid(row=1,column=3)
 be.grid(row=4,column=3)
 bp.grid(row=2,column=3)
+bm.grid(row=3,column=3)
+bt.grid(row=4,column=2)
+bd.grid(row=4,column=1)
 
 # 数値を表示するウィジェット
 
