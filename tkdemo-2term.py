@@ -105,25 +105,25 @@ def show_number(num):
 # ウインドウ作成
 root = tk.Tk()
 # コンテナ作成
-f = tk.Frame(root)
+f = tk.Frame(root, bg="#ffffc0")
 # フレーム割り付け
 f.grid()
 
 # ウィジェットの作成
 
-b1 = tk.Button(f, text="1", command=lambda:key(1))
-b2 = tk.Button(f, text="2", command=lambda:key(2))
-b3 = tk.Button(f, text="3", command=lambda:key(3))
-b4 = tk.Button(f, text="4", command=lambda:key(4))
-b5 = tk.Button(f, text="5", command=lambda:key(5))
-b6 = tk.Button(f, text="6", command=lambda:key(6))
-b7 = tk.Button(f, text="7", command=lambda:key(7))
-b8 = tk.Button(f, text="8", command=lambda:key(8))
-b9 = tk.Button(f, text="9", command=lambda:key(9))
-b0 = tk.Button(f, text="0", command=lambda:key(0))
-bc = tk.Button(f, text="C", command=clear)
-bp = tk.Button(f, text="+", command=plus)
-be = tk.Button(f, text="=", command=eq)
+b1 = tk.Button(f, text="1", highlightbackground="#ffffff", width=2, command=lambda:key(1))
+b2 = tk.Button(f, text="2", highlightbackground="#ffffff", width=2,command=lambda:key(2))
+b3 = tk.Button(f, text="3", highlightbackground="#ffffff", width=2,command=lambda:key(3))
+b4 = tk.Button(f, text="4", highlightbackground="#ffffff", width=2,command=lambda:key(4))
+b5 = tk.Button(f, text="5", highlightbackground="#ffffff", width=2,command=lambda:key(5))
+b6 = tk.Button(f, text="6", highlightbackground="#ffffff", width=2,command=lambda:key(6))
+b7 = tk.Button(f, text="7", highlightbackground="#ffffff", width=2,command=lambda:key(7))
+b8 = tk.Button(f, text="8", highlightbackground="#ffffff", width=2,command=lambda:key(8))
+b9 = tk.Button(f, text="9", highlightbackground="#ffffff", width=2,command=lambda:key(9))
+b0 = tk.Button(f, text="0", highlightbackground="#ffffff", width=2,command=lambda:key(0))
+bc = tk.Button(f, text="C", highlightbackground="#ff0000", width=2,command=clear)
+bp = tk.Button(f, text="+", highlightbackground="#00ff00", width=2,command=plus)
+be = tk.Button(f, text="=", highlightbackground="#00ff00", width=2,command=eq)
 
 # Grid 型ジオメトリマネージャによるウィジェットの割り付け
 
@@ -143,7 +143,7 @@ bp.grid(row=2,column=3)
 
 # 数値を表示するウィジェット
 
-e = tk.Entry(f)
+e = tk.Entry(f, font=("Helvetica", 14))
 e.grid(row=0, column=0, columnspan=4)
 clear()
 
