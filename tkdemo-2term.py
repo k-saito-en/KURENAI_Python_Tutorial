@@ -76,90 +76,97 @@ def do_eq():
             result = first_term // second_term # 課題指示通りに整数商を求める 演算子 // とする
             current_number = 0
 
+# tk.Frame を継承した MyFrame というクラスを作り
+# その中でウィジェットやコールバック関数(メソッド)を設定する
+# tkinter をつかう定番
 
-# # 数字キーのコールバック
-# def key1():
-#     key(1)
+class MyFrame(tk.Frame):
+#   __init__はクラスオブジェクトを作る際の初期化メソッド
+    def __init__(self, master = None):
+        super().__init__(master)
+# 後で参照しないウィジェットの作成、ローカル変数
+        b1 = tk.Button(self,text='1', command=lambda:self.key(1))
+        b2 = tk.Button(self,text='2', command=lambda:self.key(2))
+        b3 = tk.Button(self,text='3', command=lambda:self.key(3))
+        b4 = tk.Button(self,text='4', command=lambda:self.key(4))
+        b5 = tk.Button(self,text='5', command=lambda:self.key(5))
+        b6 = tk.Button(self,text='6', command=lambda:self.key(6))
+        b7 = tk.Button(self,text='7', command=lambda:self.key(7))
+        b8 = tk.Button(self,text='8', command=lambda:self.key(8))
+        b9 = tk.Button(self,text='9', command=lambda:self.key(9))
+        b0 = tk.Button(self,text='0', command=lambda:self.key(0))
+        bc = tk.Button(self,text='c', command=self.clear)
+        bp = tk.Button(self,text='+', command=self.plus)
+        be = tk.Button(self,text='=', command=self.eq)
+        bm = tk.Button(self,text='-', command=self.minus)
+        bt = tk.Button(self,text='x', command=self.times)
+        bd = tk.Button(self,text='/', command=self.division)
 
+# Grid 型ジオメトリーマネージャによるウィジェットの割り付け
+        b1.grid(row=3, column=0)
+        b2.grid(row=3, column=1)
+        b3.grid(row=3, column=2)
+        b4.grid(row=2, column=0)
+        b5.grid(row=2, column=1)
+        b6.grid(row=2, column=2)
+        b7.grid(row=1, column=0)
+        b8.grid(row=1, column=1)
+        b9.grid(row=1, column=2)
+        b0.grid(row=4, column=0)
+        bc.grid(row=1,column=3)
+        bp.grid(row=2,column=3)
+        be.grid(row=4,column=3)
+        bm.grid(row=3,column=3)
+        bt.grid(row=4,column=2)
+        bd.grid(row=4,column=1)
 
-# def key2():
-#     key(2)
+# 他のメソッドで参照する数値を表示するウィジェット,
+# クラスオブジェクトの変数として作成,頭に self. がつく
+        self.e = tk.Entry(self)
+        self.e.grid(row=0, column=0, columnspan=4)
 
+# クラスの定義ではメソッドの最初の引数は self, 中でクラスオブジェクトの変数, メソッドは self をつけて参照
+    def key(self, n):
+        global current_number
+        current_number = current_number * 10 + n
+        self.show_number(current_number)
 
-# def key3():
-#     key(3)
-
-
-# def key4():
-#     key(4)
-
-
-# def key5():
-#     key(5)
-
-
-# def key6():
-#     key(6)
-
-
-# def key7():
-#     key(7)
-
-
-# def key8():
-#     key(8)
-
-
-# def key9():
-#     key(9)
-
-
-# def key0():
-#     key(0)
-
-
-# 数字キーを一括処理する関数
-def key(n):
-    global current_number
-    current_number = current_number * 10 + n
-    show_number(current_number)
-
-
-def clear():
-    global current_number
-    current_number = 0
-    show_number(current_number)
-
-
-def plus():
-    do_puls()
-    show_number(current_number)
-
-
-def minus():
-    do_minus()
-    show_number(current_number)
+    
+    def clear(self):
+        global current_number
+        current_number = 0
+        self.show_number(current_number)
 
 
-def times():
-    do_times()
-    show_number(current_number)
+    def plus(self):
+        do_puls()
+        self.show_number(current_number)
 
 
-def division():
-    do_division()
-    show_number(current_number)
+    def minus(self):
+        do_minus()
+        self.show_number(current_number)
 
 
-def eq():
-    do_eq()
-    show_number(result)
+    def times(self):
+        do_times()
+        self.show_number(current_number)
+
+
+    def division(self):
+        do_division()
+        self.show_number(current_number)
+
+
+    def eq(self):
+        do_eq()
+        self.show_number(result)
 
 
 
-def show_number(num):
-    e.delete(0, tk.END)
-    e.insert(0, str(num))
+    def show_number(self, num):
+        self.e.delete(0, tk.END)
+        self.e.insert(0, str(num))
 
 
 # tkinter での画面構成
@@ -167,51 +174,9 @@ def show_number(num):
 # ウインドウ作成
 root = tk.Tk()
 # コンテナ作成
-f = tk.Frame(root, bg="#ffffc0")
+f = MyFrame(root)
 # フレーム割り付け
-f.grid()
+f.pack()
+f.mainloop()
 
-# ウィジェットの作成
 
-number_buttons = []
-for i in range(10):
-    button = tk.Button(f, text=str(i), highlightbackground="#ffffff", width=2, command=lambda x=i: key(x))
-    number_buttons.append(button)
-
-bc = tk.Button(f, text="C", highlightbackground="#ff0000", width=2, command=clear)
-bp = tk.Button(f, text="+", highlightbackground="#00ff00", width=2, command=plus)
-bm = tk.Button(f, text="-", highlightbackground="#00ff00", width=2, command=minus)
-bt = tk.Button(f, text="x", highlightbackground="#00ff00", width=2, command=times)
-bd = tk.Button(f, text="/", highlightbackground="#00ff00", width=2, command=division)
-be = tk.Button(f, text="=", highlightbackground="#00ff00", width=2, command=eq)
-
-# Grid 型ジオメトリマネージャによるウィジェットの割り付け
-
-number_buttons[0].grid(row=4,column=0)
-number_buttons[1].grid(row=3,column=0)
-number_buttons[2].grid(row=3,column=1)
-number_buttons[3].grid(row=3,column=2)
-number_buttons[4].grid(row=2,column=0)
-number_buttons[5].grid(row=2,column=1)
-number_buttons[6].grid(row=2,column=2)
-number_buttons[7].grid(row=1,column=0)
-number_buttons[8].grid(row=1,column=1)
-number_buttons[9].grid(row=1,column=2)
-
-bc.grid(row=1,column=3)
-be.grid(row=4,column=3)
-bp.grid(row=2,column=3)
-bm.grid(row=3,column=3)
-bt.grid(row=4,column=2)
-bd.grid(row=4,column=1)
-
-# 数値を表示するウィジェット
-
-e = tk.Entry(f, font=("Helvetica", 14))
-e.grid(row=0, column=0, columnspan=4)
-clear()
-
-# ここから GUI がスタート
-
-# mainloop メソッドで GUI の処理に移る
-root.mainloop()
