@@ -82,7 +82,12 @@ def do_eq():
 
 class MyFrame(tk.Frame):
 #   __init__はクラスオブジェクトを作る際の初期化メソッド
+#   インスタンス化された際、自分への参照を渡すために self を使う
+#   master = None は tkinter の引数で親ウィジェットが存在しないということ
     def __init__(self, master = None):
+#       super(). で継承した親クラスのメソッドが使えるようになる
+#       親クラスの tk.Frame のコンストラクタに引数 master(親をウィジェットで self の代わり) を渡して実行している
+#       Frame() クラスの親ウィジェット tk.Tk()（ウィンドウオブジェクト）を指定して親クラスのコンストラクタを実行している
         super().__init__(master)
 # 後で参照しないウィジェットの作成、ローカル変数
         b1 = tk.Button(self,text='1', command=lambda:self.key(1))
@@ -173,7 +178,7 @@ class MyFrame(tk.Frame):
 
 # ウインドウ作成
 root = tk.Tk()
-# コンテナ作成
+# コンテナ作成（初期化）
 f = MyFrame(root)
 # フレーム割り付け
 f.pack()
