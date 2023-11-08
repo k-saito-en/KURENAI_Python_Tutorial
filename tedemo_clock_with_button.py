@@ -1,4 +1,4 @@
-# tkinter canvas を使ったアナログ時計、ボタンなし
+# tkinter canvas を使ったアナログ時計、ボタンあり
 
 import tkinter as tk
 import math
@@ -23,13 +23,26 @@ class MyFrame(tk.Frame):
             y = self.size/2 + math.sin(math.radians(number*360/12 - 90))*self.size/2*0.85
             self.clock.create_text(x, y, text=str(number), fill="black", font=("", 14))
 
+# 日付表示をオンオフするボタン
 
+        self.b = tk.Button(self, text="Show Date", font=("", 14), command = self.toggle)
+        self.b.grid(row = 1, column = 0)
 
 # 時刻の経過確認などの動作のためのインスタンス変数
 
         self.sec = time.localtime().tm_sec
         self.min = time.localtime().tm_min
         self.hour = time.localtime().tm_hour
+        self.show_date = False
+
+    # ボタンが押された時の call back
+
+    def toggle(self):
+        if self.show_date:
+            self.b.configure(text="show date")
+        else:
+            self.b.configure(text="hide date")
+        self.show_date = not self.show_date
 
     # 変化する画面の描画
 
@@ -68,13 +81,14 @@ class MyFrame(tk.Frame):
         self.clock.delete("HOUR")
         self.clock.create_line(x0, y0, x, y, width=3, fill="green", tag="HOUR")
 
-        #␣日付の描画,␣秒が変わるか，ボタンが押されたとき
+        # 日付の描画, 秒が変わるか，ボタンが押されたとき
 
         x = self.size/2
         y = self.size/2 + 20
         text = time.strftime('%Y/%m/%d %H:%M:%S') 
         self.clock.delete("TIME") 
-        self.clock.create_text(x, y, text=text, font=("",12), fill="black", tag="TIME")
+        if self.show_date:
+            self.clock.create_text(x, y, text=text, font=("",12), fill="black", tag="TIME")
 
         # 100 ミリ秒後に再度呼び出す
 
