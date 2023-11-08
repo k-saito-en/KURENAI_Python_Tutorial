@@ -42,7 +42,7 @@ class MyFrame(tk.Frame):
         x0 = self.size/2 - math.cos(angle)*self.size/2*0.1
         y0 = self.size/2 - math.sin(angle)*self.size/2*0.1
         x = self.size/2 + math.cos(angle)*self.size/2*0.75
-        y = self.size/2 + math.cos(angle)*self.size/2*0.75
+        y = self.size/2 + math.sin(angle)*self.size/2*0.75
 
         # 前の描画をタグで検索して消してから描画
 
