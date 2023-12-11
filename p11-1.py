@@ -16,18 +16,22 @@ class Dentaku():
             self.result = self.first_term / self.second_term
 
 # ここからメインプログラム
-dentaku = Dentaku()
+dentaku_plus = Dentaku()
+dentaku_minus = Dentaku()
 while True:
     f = int(input("First term "))
-    dentaku.first_term = f
+    dentaku_plus.first_term = f
     o = input("Operation ")
-    dentaku.operation = o
+    dentaku_plus.operation = o
     s = int(input("Second term "))
-    dentaku.second_term = s
-    dentaku.do_operation()
-    r = dentaku.result
+    dentaku_plus.second_term = s
+    dentaku_plus.do_operation()
+    r = dentaku_plus.result
     print("Result ", r)
-
+    dentaku_minus.first_term = dentaku_plus.result
+    dentaku_minus.second_term = dentaku_plus.second_term
+    if dentaku_plus.first_term == dentaku_minus.first_term - dentaku_minus.second_term:
+        print("加算結果は正しいです")
 
 # 実行結果
 # First term 1
