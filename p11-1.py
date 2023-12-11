@@ -10,6 +10,10 @@ class Dentaku():
             self.result = self.first_term + self.second_term
         elif self.operation == "-":
             self.result = self.first_term - self.second_term
+        elif self.operation == "*":
+            self.result = self.first_term * self.second_term
+        elif self.operation == "/":
+            self.result = self.first_term / self.second_term
 
 # ここからメインプログラム
 dentaku = Dentaku()
