@@ -1,111 +1,144 @@
 import tkinter as tk
 
-# 計算機能のための変数とイベント用の関数定義
 
-# ２校演算のモデル
-# 入力中の数字
-current_number = 0
-# 第一項
-first_term = 0
-# 第二項
-second_term = 0
-# 結果
-result = 0
-
-operation = 0
-
-
-def do_puls():
-    global current_number
-    global first_term
-    global operation
-
-    operation = 1
-    first_term = current_number
-    current_number = 0
-
-
-def do_minus():
-    global current_number
-    global first_term
-    global operation
-
-    operation = 2
-    first_term = current_number
-    current_number = 0
-
-
-def do_times():
-    global current_number
-    global first_term
-    global operation
-
-    operation = 3
-    first_term = current_number
-    current_number = 0
-
-
-def do_division():
-    global current_number
-    global first_term
-    global operation
-
-    operation = 4
-    first_term = current_number
-    current_number = 0
-
-def do_eq():
-    global second_term
-    global result
-    global current_number
-
-    second_term = current_number
-    if operation == 1:
-        result = first_term + second_term
-        current_number = 0
-    elif operation == 2:
-        result = first_term - second_term
-        current_number = 0
-    elif operation == 3:
-        result = first_term * second_term
-        current_number = 0
-    elif operation == 4:
-        if second_term == 0: # 0 を割るという概念はないのでエラー表示
-            result = "Error"
+# 四則演算をするための電卓クラス
+class Dentaku():
+    def __init__(self):
+        self.first_term = 0
+        self.second_term = 0
+        self.result = 0
+        self.current_number = 0
+        self.operation = "+"
+    
+    def do_operation(self):
+        if self.operation == "+":
+            self.result = self.first_term + self.second_term
+            self.current_number = 0
+        elif self.operation == "-":
+            self.result = self.first_term - self.second_term
+            self.current_number = 0
+        elif self.operation == "*":
+            self.result = self.first_term * self.second_term
+            self.current_number = 0
+        elif self.operation == "/":
+            if self.second_term == 0:  # 0 を割るという概念はないのでエラー表示
+                self.result = 0000
         else:
-            result = first_term // second_term # 課題指示通りに整数商を求める 演算子 // とする
-            current_number = 0
+            self.result = self.first_term // self.second_term  # 課題指示通りに整数商を求める 演算子 // とする
+            self.current_number = 0
+
+
+# Dentakuクラスを初期化
+dentaku = Dentaku()
+
+# # 計算機能のための変数とイベント用の関数定義
+
+# # ２校演算のモデル
+# # 入力中の数字
+# current_number = 0
+# # 第一項
+# first_term = 0
+# # 第二項
+# second_term = 0
+# # 結果
+# result = 0
+
+# operation = 0
+
+
+# def do_puls():
+#     global current_number
+#     global first_term
+#     global operation
+
+#     operation = 1
+#     first_term = current_number
+#     current_number = 0
+
+
+# def do_minus():
+#     global current_number
+#     global first_term
+#     global operation
+
+#     operation = 2
+#     first_term = current_number
+#     current_number = 0
+
+
+# def do_times():
+#     global current_number
+#     global first_term
+#     global operation
+
+#     operation = 3
+#     first_term = current_number
+#     current_number = 0
+
+
+# def do_division():
+#     global current_number
+#     global first_term
+#     global operation
+
+#     operation = 4
+#     first_term = current_number
+#     current_number = 0
+
+
+# def do_eq():
+#     global second_term
+#     global result
+#     global current_number
+
+#     second_term = current_number
+#     if operation == 1:
+#         result = first_term + second_term
+#         current_number = 0
+#     elif operation == 2:
+#         result = first_term - second_term
+#         current_number = 0
+#     elif operation == 3:
+#         result = first_term * second_term
+#         current_number = 0
+#     elif operation == 4:
+#         if second_term == 0:  # 0 を割るという概念はないのでエラー表示
+#             result = "Error"
+#         else:
+#             result = first_term // second_term  # 課題指示通りに整数商を求める 演算子 // とする
+#             current_number = 0
 
 # tk.Frame を継承した MyFrame というクラスを作り
 # その中でウィジェットやコールバック関数(メソッド)を設定する
 # tkinter をつかう定番
 
+
 class MyFrame(tk.Frame):
-#   __init__はクラスオブジェクトを作る際の初期化メソッド
-#   インスタンス化された際、自分への参照を渡すために self を使う
-#   master = None は tkinter の引数で親ウィジェットが存在しないということ
-    def __init__(self, master = None):
-#       super(). で継承した親クラスのメソッドが使えるようになる
-#       親クラスの tk.Frame のコンストラクタに引数 master(親をウィジェットで self の代わり) を渡して実行している
-#       Frame() クラスの親ウィジェット tk.Tk()（ウィンドウオブジェクト）を指定して親クラスのコンストラクタを実行している
+    # __init__はクラスオブジェクトを作る際の初期化メソッド
+    # インスタンス化された際、自分への参照を渡すために self を使う
+    # master = None は tkinter の引数で親ウィジェットが存在しないということ
+    def __init__(self, master=None):
+        # super(). で継承した親クラスのメソッドが使えるようになる
+        # 親クラスの tk.Frame のコンストラクタに引数 master(親をウィジェットで self の代わり) を渡して実行している
+        # Frame() クラスの親ウィジェット tk.Tk()（ウィンドウオブジェクト）を指定して親クラスのコンストラクタを実行している
         super().__init__(master)
 # 後で参照しないウィジェットの作成、ローカル変数
-        b1 = tk.Button(self,text='1', command=lambda:self.key(1))
-        b2 = tk.Button(self,text='2', command=lambda:self.key(2))
-        b3 = tk.Button(self,text='3', command=lambda:self.key(3))
-        b4 = tk.Button(self,text='4', command=lambda:self.key(4))
-        b5 = tk.Button(self,text='5', command=lambda:self.key(5))
-        b6 = tk.Button(self,text='6', command=lambda:self.key(6))
-        b7 = tk.Button(self,text='7', command=lambda:self.key(7))
-        b8 = tk.Button(self,text='8', command=lambda:self.key(8))
-        b9 = tk.Button(self,text='9', command=lambda:self.key(9))
-        b0 = tk.Button(self,text='0', command=lambda:self.key(0))
-        bc = tk.Button(self,text='c', command=self.clear)
-        bp = tk.Button(self,text='+', command=self.plus)
-        be = tk.Button(self,text='=', command=self.eq)
-        bm = tk.Button(self,text='-', command=self.minus)
-        bt = tk.Button(self,text='x', command=self.times)
-        bd = tk.Button(self,text='/', command=self.division)
+        b1 = tk.Button(self, text='1', command=lambda: self.key(1))
+        b2 = tk.Button(self, text='2', command=lambda: self.key(2))
+        b3 = tk.Button(self, text='3', command=lambda: self.key(3))
+        b4 = tk.Button(self, text='4', command=lambda: self.key(4))
+        b5 = tk.Button(self, text='5', command=lambda: self.key(5))
+        b6 = tk.Button(self, text='6', command=lambda: self.key(6))
+        b7 = tk.Button(self, text='7', command=lambda: self.key(7))
+        b8 = tk.Button(self, text='8', command=lambda: self.key(8))
+        b9 = tk.Button(self, text='9', command=lambda: self.key(9))
+        b0 = tk.Button(self, text='0', command=lambda: self.key(0))
+        bc = tk.Button(self, text='c', command=self.clear)
+        bp = tk.Button(self, text='+', command=self.plus)
+        be = tk.Button(self, text='=', command=self.eq)
+        bm = tk.Button(self, text='-', command=self.minus)
+        bt = tk.Button(self, text='x', command=self.times)
+        bd = tk.Button(self, text='/', command=self.division)
 
 # Grid 型ジオメトリーマネージャによるウィジェットの割り付け
         b1.grid(row=3, column=0)
@@ -118,12 +151,12 @@ class MyFrame(tk.Frame):
         b8.grid(row=1, column=1)
         b9.grid(row=1, column=2)
         b0.grid(row=4, column=0)
-        bc.grid(row=1,column=3)
-        bp.grid(row=2,column=3)
-        be.grid(row=4,column=3)
-        bm.grid(row=3,column=3)
-        bt.grid(row=4,column=2)
-        bd.grid(row=4,column=1)
+        bc.grid(row=1, column=3)
+        bp.grid(row=2, column=3)
+        be.grid(row=4, column=3)
+        bm.grid(row=3, column=3)
+        bt.grid(row=4, column=2)
+        bd.grid(row=4, column=1)
 
 # 他のメソッドで参照する数値を表示するウィジェット,
 # クラスオブジェクトの変数として作成,頭に self. がつく
@@ -132,42 +165,37 @@ class MyFrame(tk.Frame):
 
 # クラスの定義ではメソッドの最初の引数は self, 中でクラスオブジェクトの変数, メソッドは self をつけて参照
     def key(self, n):
-        global current_number
-        current_number = current_number * 10 + n
-        self.show_number(current_number)
+        dentaku.current_number = n
+        self.show_number(dentaku.current_number)
 
-    
     def clear(self):
-        global current_number
-        current_number = 0
-        self.show_number(current_number)
-
+        dentaku.current_number = 0
+        self.show_number(dentaku.current_number)
 
     def plus(self):
-        do_puls()
-        self.show_number(current_number)
-
+        dentaku.operation = "+"
+        dentaku.first_term = dentaku.current_number
+        self.show_number(dentaku.current_number)
 
     def minus(self):
-        do_minus()
-        self.show_number(current_number)
-
+        dentaku.operation = "-"
+        dentaku.first_term = dentaku.current_number
+        self.show_number(dentaku.current_number)
 
     def times(self):
-        do_times()
-        self.show_number(current_number)
-
+        dentaku.operation = "*"
+        dentaku.first_term = dentaku.current_number
+        self.show_number(dentaku.current_number)
 
     def division(self):
-        do_division()
-        self.show_number(current_number)
-
+        dentaku.operation = "/"
+        dentaku.first_term = dentaku.current_number
+        self.show_number(dentaku.current_number)
 
     def eq(self):
-        do_eq()
-        self.show_number(result)
-
-
+        dentaku.second_term = dentaku.current_number
+        dentaku.do_operation()
+        self.show_number(dentaku.result)
 
     def show_number(self, num):
         self.e.delete(0, tk.END)
@@ -183,5 +211,3 @@ f = MyFrame(root)
 # フレーム割り付け
 f.pack()
 f.mainloop()
-
-

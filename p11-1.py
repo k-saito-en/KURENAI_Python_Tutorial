@@ -3,17 +3,27 @@ class Dentaku():
         self.first_term = 0
         self.second_term = 0
         self.result = 0
+        self.current_number = 0
         self.operation = "+"
     
     def do_operation(self):
+        self.second_term = self.current_number
         if self.operation == "+":
             self.result = self.first_term + self.second_term
+            self.current_number = 0
         elif self.operation == "-":
             self.result = self.first_term - self.second_term
+            self.current_number = 0
         elif self.operation == "*":
             self.result = self.first_term * self.second_term
+            self.current_number = 0
         elif self.operation == "/":
-            self.result = self.first_term / self.second_term
+            if self.second_term == 0:  # 0 を割るという概念はないのでエラー表示
+                self.result = 0000
+        else:
+            self.result = self.first_term // self.second_term  # 課題指示通りに整数商を求める 演算子 // とする
+            self.current_number = 0
+
 
 # ここからメインプログラム
 dentaku_plus = Dentaku()
