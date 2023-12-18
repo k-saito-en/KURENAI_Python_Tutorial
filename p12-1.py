@@ -8,5 +8,6 @@ f.write("日本語\n 日本語\n 日本語\n")
 f.close()
 # 日本語ファイル.txt を読み込み用に open して、その内容を表示します
 f = open("日本語ファイル.txt", "r")
-s = f.close()
+s = f.read()
+f.close()
 print(s)
