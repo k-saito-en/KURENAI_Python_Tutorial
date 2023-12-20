@@ -33,9 +33,9 @@ else:
 cycles = 2
 steps = 1000
 harmonics = 5
-#␣ファイルが開けないときのエラー対応
+# ファイルが開けないときのエラー対応
 try:
-#␣ファイルを開く
+# ファイルを開く
     with open(filename,'w') as file:
         for i in range(steps): 
             angle_in_degree = 360*cycles*i/steps 
