@@ -8,7 +8,7 @@ import math
 root = tk.Tk()
 root.withdraw()
 #
-# 書き出し用の␣filedialog␣を読んでファイル名を得る
+# 書き出し用の filedialog を読んでファイル名を得る
 #
 filename = tkinter.filedialog.asksaveasfilename()
 #
