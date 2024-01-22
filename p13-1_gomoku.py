@@ -1,20 +1,15 @@
 # 三目並べ
-#
 # 特にインポートするモジュールはありません
-#
+
 # 定数の定義
-#
-#
-# play() の中で棋譜を作成する (要完成)
-#
+# play() の中で棋譜を作成する
 '三目並べのプログラムです'
 OPEN = 0
 FIRST = 1
 SECOND = 2
 DRAW = 3
-#
+
 # 恒常的な変数
-#
 turn = 1
 board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
@@ -24,12 +19,11 @@ log1 = [[0, 0], [1, 1], [1, 0], [2, 0], [0, 2], [0, 1], [2, 1], [2, 2], [1, 2],
 log2 = [[0, 0], [1, 0], [1, 1], [2, 2], [0, 1], [2, 0], [FIRST]]
 log3 = [[0, 1], [0, 0], [2, 1], [1, 1], [2, 2], [2, 0], [1, 0],
         [0, 2], [SECOND]]
-#
+
+
 # 手番関連の関数
-#
-# 手番を文字列に
 
-
+# 手番を出力する関数
 def show_turn():
     '手番を示す文字列を返す'
     if turn == FIRST:
@@ -40,8 +34,6 @@ def show_turn():
         return '手番の値が不適切です'
 
 # 手番の初期化
-
-
 def init_turn():
     '手番を初期化する'
     global turn
@@ -60,7 +52,6 @@ def change_turn():
 
 # 手番関連の関数のテスト
 
-
 def test_turn():
     '手番をテストする'
     init_turn()
@@ -74,12 +65,13 @@ def test_turn():
 #
 # 盤面を表示する文字列
 
-
 def show_board():
     '盤面を表す文字列を返す'
     s = ' :0 1 2\n---------\n'
     for i in range(3):
+        # n列目を表示
         s = s + str(i) + ': '
+        # 要素を３つ並べる
         for j in range(3):
             cell = ''
             if board[i][j] == OPEN:
@@ -124,6 +116,7 @@ def set_board(i, j, t):
     '''
     if (i >= 0) and (i < 3) and (j >= 0) and (j < 3):
         if (t > 0) and (t < 3):
+            # セルが OPEN 出会った場合、操作中のプレーヤーのセルにする 
             if examine_board(i, j) == 0:
                 board[i][j] = t
                 return 'OK'
@@ -426,8 +419,11 @@ def test_board3():
 
 def replay_log(log):
     '棋譜 log をたどります. print 文で画面に出力します'
+    # 盤面を初期化して
     init_board()
+    # 手番も初期化して
     init_turn()
+    # 初期状態の盤面を表示
     print(show_board())
     for m in log:
         if len(m) == 2:
