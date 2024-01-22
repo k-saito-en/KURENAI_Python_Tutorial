@@ -15,10 +15,10 @@ board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 # テスト用の棋譜
 log1 = [[0, 0], [1, 1], [1, 0], [2, 0], [0, 2], [0, 1], [2, 1], [2, 2], [1, 2],
-        [DRAW]]
-log2 = [[0, 0], [1, 0], [1, 1], [2, 2], [0, 1], [2, 0], [FIRST]]
+        [DRAW]] # [行, 列]を交互に打つと引き分けになる棋譜
+log2 = [[0, 0], [1, 0], [1, 1], [2, 2], [0, 1], [2, 0], [FIRST]] # 先手が勝つ棋譜
 log3 = [[0, 1], [0, 0], [2, 1], [1, 1], [2, 2], [2, 0], [1, 0],
-        [0, 2], [SECOND]]
+        [0, 2], [SECOND]] # 後手が勝つ棋譜
 
 
 # 手番関連の関数
@@ -424,6 +424,7 @@ def replay_log(log):
     # 手番も初期化して
     init_turn()
     # 初期状態の盤面を表示
+    print("棋譜をリプレイします")
     print(show_board())
     for m in log:
         if len(m) == 2:
@@ -476,12 +477,15 @@ def play():
     # 棋譜用の空リストを作る。play()の外側でアクセスするならglobal宣言
     global log
     log = []
+    m = [0, 0]
 
     while True:
         print(show_turn(), "の番です")
         while True:
             row = int(input("行を入力してください: "))
             column = int(input("列を入力してください: "))
+            m = [row, column]
+            log.append(m)
             result = set_board(row, column, turn)
             print(result)
 
